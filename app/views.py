@@ -41,7 +41,7 @@ def register() -> str:
     if request.method == 'GET':
         return render_template("register.html", bolean=True)
 
-@views.route('/user', methods=['POST'])
+@views.route('/user', methods=['GET', 'POST'])
 def show_user() -> str:
     """
     returns an HTML template with some user data. (Vulnerable to SQL injection.)
