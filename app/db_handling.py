@@ -48,6 +48,7 @@ class Database:
     def get_user(self, user_name: str, password: str) -> dict:
         all_users = {}
         query = f"SELECT * FROM users WHERE user_name = '{user_name}' AND password = '{password}'"
+        
         try:
             conn = sql.connect(DB_FILE)
             cursor = conn.cursor()
