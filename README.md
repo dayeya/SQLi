@@ -10,7 +10,7 @@ That is by using the `f strings` in Python, the following code is where the brea
         query = f"SELECT * FROM users WHERE user_name = '{user_name}' AND password = '{password}'"
         # rest of the code...
 ```
-As a result of using the `f-string`, parsing an SQL Injection payload can cause trouble.
+As a result of using the `f-string`, parsing an SQL Injection payload can cause trouble.<br>
 E.g parsing the `' OR 'a'='a';--` payload and a random password (abcd) can exploit the database.
 ```sql
 SELECT * FROM users WHERE user_name = '' OR 'a'='a';-- AND password = 'abcd'
