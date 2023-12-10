@@ -13,11 +13,7 @@ CREATE TABLE IF NOT EXISTS users (
 """
 
 class Database:
-    
     def __init__(self) -> None:
-        """
-        Databse object.
-        """
         conn = sql.connect(DB_FILE)
         cursor = conn.cursor()
         try:
