@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-    <h1>{{msg}}</h1>
-    {% for key,value in form_data.items() %}
-    <h2>{{key}}, Password: {{value[0]}}, at: {{value[1]}}</h2>
+    <h1>{{ msg }}</h1>
+    {% for key, value in form_data.items() %}
+    <h2>Hello {{ key }}!, your password is {{value[0]}}, registration data: {{value[1]}}</h2>
     {% endfor %}
 </body>
 </html>
