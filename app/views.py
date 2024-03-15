@@ -17,13 +17,21 @@ def login() -> str:
     Logs into DB, return an HTML template.
     """
     msg = None
-    user_name = request.args.get('user_name')
-    password = request.args.get('password')
+    if request.method == "GET":
+        user_name = request.args.get('user_name')
+        password = request.args.get('password')
+    elif request.method == "POST":
+        user_name = request.form["user_name"]
+        password = request.form["password"]
     user_data = DB.get_user(user_name, password)
     if user_data: 
         msg = "Logged in successfully" 
     else: 
-        msg = "You are unable to log in, please register before logging in." 
+        msg = "You are unable to log in, please register before logging in."
+        
+    if request.method == "GET" and not user_name and not password:
+        return render_template("login.html")
+    
     return render_template("user_page.html", boolean=True, form_data=user_data, msg=msg)
 
 @views.route('/register', methods=['GET', 'POST'])
@@ -31,11 +39,20 @@ def register() -> str:
     """
     Regiters a new user into DB, return an HTML template.
     """
-    user_name = request.args.get('user_name')
-    password = request.args.get('password')
+    user_name, password = "", ""
+    if request.method == "GET":
+        user_name = request.args.get('user_name')
+        password = request.args.get('password')
+    elif request.method == "POST":
+        user_name = request.form["user_name"]
+        password = request.form["password"]
+        
     registration = datetime.now().strftime("%Y-%m-%d %H:%M")
     user = User(user_name, password, registration)
     DB.add_user(user)
+    
+    if request.method == "GET" and not user_name and not password:
+        return render_template("register.html")
     
     return render_template("user_page.html", boolean=True, msg='Registered successfully!', form_data={
         user.name: [user.password, user.registration]
