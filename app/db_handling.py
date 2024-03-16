@@ -27,11 +27,11 @@ class Database:
             print(f'[!] Unable to open database.')
         
     def add_user(self, user: User) -> None:
-        query = f"""INSERT INTO users VALUES(?, ?, ?)"""
         try:
+            query = f"""INSERT INTO users VALUES({user.name}, {user.password}, {user.registration})"""
             conn = sql.connect(DB_FILE)
             cursor = conn.cursor()
-            cursor.execute(query, (user.name, user.password, user.registration))
+            cursor.execute(query)
             
             # Close all resources.
             conn.commit()
@@ -44,7 +44,6 @@ class Database:
     def get_user(self, user_name: str, password: str) -> dict:
         all_users = {}
         query = f"SELECT * FROM users WHERE user_name = '{user_name}' AND password = '{password}'"
-        
         try:
             conn = sql.connect(DB_FILE)
             cursor = conn.cursor()
