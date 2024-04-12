@@ -5,14 +5,14 @@ from datetime import datetime
 
 from app.user import User
 from app.db_handling import DB
-from app_config import get_configuration_from_section
+from app_config import get_section
 
 
 INI_FILE = Path("app.ini")
 
 
-def get_proxy_configuration():
-    config = get_configuration_from_section("PROXY", INI_FILE)
+def get_proxy_configuration() -> tuple:
+    config = get_section(section_name="PROXY", file=INI_FILE)
     if not config.getboolean(option="proxy_enabled"):
         return "127.0.0.1", 50000
     return config["ip"], config["port"]
